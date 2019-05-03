@@ -7,9 +7,30 @@ Answer *get_indices_of_item_weights(int *weights, int length, int limit)
 {
   HashTable *ht = create_hash_table(16);
 
-  // YOUR CODE HERE
+for (int index = 0; index < length; index ++) {
+int weight_index = weights[index] ;
+int complement = limit - weight_index ;
+
+int complement_index = hash_table_retrieve(ht, complement) ;
+//if hash table is empty it returns -1, assigning index
+
+if (complement_index != -1) {
+Answer *answer = malloc(sizeof(Answer));
+//set in the index
+
+answer->index_1 = index ;
+answer->index_2 = complement_index ;
+
+return answer ; 
+}
+//adding the weight and its current index to the ht
+hash_table_insert(ht, weight_index, index) ;
+}
+//clean up
+destroy_hash_table(ht) ;
 
   return NULL;
+  
 }
 
 void print_answer(Answer *answer)
